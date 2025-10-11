@@ -11,6 +11,7 @@
 | 8       | **Xem lịch sử nghe và thống kê**                 | Hệ thống lưu lại lịch sử nghe nhạc và hiển thị thống kê cho người dùng. | Người dùng          | Người dùng đã có hoạt động nghe nhạc.              | Hiển thị danh sách lịch sử và biểu đồ thống kê.    | (1) Người dùng chọn “Lịch sử nghe” → (2) Hệ thống truy xuất dữ liệu → (3) Hiển thị danh sách và thống kê.                           |
 | 9       | **Quản lý Nghệ sĩ / Album / Bài hát / Thể loại** | Quản trị viên thêm, chỉnh sửa hoặc xóa thông tin nhạc.                  | Quản trị viên       | Quản trị viên đã đăng nhập vào giao diện quản trị. | Dữ liệu hệ thống được cập nhật.                    | (1) Admin chọn danh mục → (2) Thêm/Sửa/Xóa thông tin → (3) Hệ thống xác nhận cập nhật thành công.                                   |
 
+.[Mô hình Use Case tổng quát](https://github.com/Lanne-0402/music-streaming-spec/blob/main/muc3_1/UCtongquai.png)
 ## Mô tả ER và ERD
 ### Thuộc tính quan trọng & ràng buộc
 
