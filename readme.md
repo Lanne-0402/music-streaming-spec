@@ -79,3 +79,45 @@
 - Genre (1) — Track (N) : mỗi bài có 1 thể loại.
 
 - User (1) — PlayHistory (N) ; Track (1) — PlayHistory (N) : lịch sử nhiều bản ghi.
+
+#### Dưới đây là ví dụ mapping cho các quan hệ chính:
+
+- Playlist.owner_user_id → FK users.id (1 user có N playlist). SQL:
+owner_user_id INT REFERENCES users(id) ON DELETE CASCADE
+
+- PlaylistTrack(playlist_id, track_id):
+
+PK: (playlist_id, track_id) (ngăn duplicate)
+
+FKs: playlist_id → playlists.id ON DELETE CASCADE; track_id → tracks.id ON DELETE CASCADE
+
+- Like(user_id, track_id):
+
+PK (user_id, track_id)
+
+FK user_id → users.id, track_id → tracks.id
+
+- Follow(user_id, artist_id):
+
+PK (user_id, artist_id)
+
+FK user_id → users.id, artist_id → artists.id
+
+- Album.artist_id → artists.id (1 artist → N album).
+
+- Track.album_id → albums.id (optional) và Track.genre_id → genres.id.
+
+- PlayHistory.user_id → users.id, PlayHistory.track_id → tracks.id.
+
+### Tùy chọn hiện thực và ràng buộc
+
+- Unique constraints: users.email, artists.name, genres.name. Ghi trong ERD 
+
+- Check constraints: tracks.duration > 0 (DB-level CHECK).
+
+- Referential actions: theo đề bài, dùng ON DELETE CASCADE cho bảng nối (PlaylistTrack, Like, Follow) → khi xóa user/playlist/track → xóa luôn các bản ghi liên quan.
+
+#### Ví dụ mô tả 1 quan hệ (để chèn vào báo cáo)
+
+- Playlist ↔ Track (N–N)
+Mối quan hệ này là N–N: một playlist có nhiều track; một track có thể xuất hiện trong nhiều playlist. Vì vậy ta sử dụng bảng nối playlist_tracks với PK tổng hợp (playlist_id, track_id). Bảng này chứa thêm sort_order để lưu vị trí bài trong playlist và added_at. FK có ON DELETE CASCADE để khi xóa playlist/track, bản ghi tương ứng bị xoá.
