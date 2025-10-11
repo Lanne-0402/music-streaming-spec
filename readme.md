@@ -121,3 +121,21 @@ FK user_id → users.id, artist_id → artists.id
 
 - Playlist ↔ Track (N–N)
 Mối quan hệ này là N–N: một playlist có nhiều track; một track có thể xuất hiện trong nhiều playlist. Vì vậy ta sử dụng bảng nối playlist_tracks với PK tổng hợp (playlist_id, track_id). Bảng này chứa thêm sort_order để lưu vị trí bài trong playlist và added_at. FK có ON DELETE CASCADE để khi xóa playlist/track, bản ghi tương ứng bị xoá.
+
+## Bảng mô tả API endpoints
+| Method      |                                                        Path | Mô tả                             |       |          |          |
+| ----------- | ----------------------------------------------------------: | --------------------------------- | ----- | -------- | -------- |
+| POST        |                                              /auth/register | Đăng ký (email/pass)              |       |          |          |
+| POST        |                                                 /auth/login | Đăng nhập (token)                 |       |          |          |
+| POST        |                                                   /auth/otp | Gửi/verify OTP                    |       |          |          |
+| GET         |                                       /search?q=&type=track | artist                            | album | playlist | Tìm kiếm |
+| GET         |                                                /tracks/{id} | Lấy metadata + lyrics             |       |          |          |
+| GET         |                                         /tracks/{id}/stream | Trả streaming URL (m3u8 hoặc mp3) |       |          |          |
+| POST        |                                           /tracks/{id}/play | Scrobble/play event               |       |          |          |
+| POST        |                                                  /playlists | Tạo playlist                      |       |          |          |
+| PUT         |                                             /playlists/{id} | Sửa playlist                      |       |          |          |
+| POST        |                                      /playlists/{id}/tracks | Thêm track                        |       |          |          |
+| DELETE      |                            /playlists/{id}/tracks/{trackId} | Xoá track                         |       |          |          |
+| POST        |                                           /tracks/{id}/like | Like/unlike                       |       |          |          |
+| POST        |                                        /artists/{id}/follow | Follow/unfollow                   |       |          |          |
+| Admin: CRUD | /admin/artists, /admin/albums, /admin/tracks, /admin/genres | Admin endpoints (auth role)       |       |          |          |
