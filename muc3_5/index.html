@@ -2,34 +2,53 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Home - Music Streaming</title>
+  <title>Home — MyMusic</title>
   <link rel="stylesheet" href="style.css">
+  <script defer src="player.js"></script>
 </head>
 <body>
   <header>
-    <h2>Music Streaming</h2>
-    <nav>
+    <div>🎵 MyMusic</div>
+    <div>
       <a href="index.html">Home</a>
       <a href="search.html">Search</a>
       <a href="playlist.html">Playlist</a>
-      <a href="artist.html">Artist</a>
-      <a href="admin.html">Admin</a>
-    </nav>
+      <a href="artist.html">Artists</a>
+    </div>
   </header>
 
   <div class="container">
-    <h3>Gợi ý cho bạn</h3>
-    <div class="card">🎵 Blank Space - Taylor Swift</div>
-    <div class="card">🎵 Chúng Ta Của Hiện Tại - Sơn Tùng M-TP</div>
-    <div class="card">🎵 Style - Taylor Swift</div>
+    <h2>Gợi ý hôm nay</h2>
+    <ul class="track-list">
+      <li onclick="playTrack(0)">
+        <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=500" alt="Track cover 1">
+        <div class="info">
+          <div>Sunset Vibes</div>
+          <div>Artist A</div>
+        </div>
+      </li>
+      <li onclick="playTrack(1)">
+        <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=500" alt="Track cover 2">
+        <div class="info">
+          <div>Dreaming High</div>
+          <div>Artist B</div>
+        </div>
+      </li>
+      <li onclick="playTrack(2)">
+        <img src="https://images.unsplash.com/photo-1487215078519-e21cc028cb29?w=500" alt="Track cover 3">
+        <div class="info">
+          <div>Neon Lights</div>
+          <div>Artist C</div>
+        </div>
+      </li>
+    </ul>
   </div>
 
-  <div class="player">
-    <span>▶️ Đang phát: Blank Space</span>
-    <div>
-      <button>⏮️</button>
-      <button>⏯️</button>
-      <button>⏭️</button>
+  <div class="player-bar">
+    <div id="player-bar-now">Chưa chọn bài nào</div>
+    <div class="controls">
+      <button id="btn-prev">◀</button>
+      <button id="btn-next">▶</button>
     </div>
   </div>
 </body>

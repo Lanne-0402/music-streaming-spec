@@ -1,60 +1,96 @@
+/* style.css */
+
+:root {
+  --primary-color: #4c6ef5;
+  --secondary-color: #ffffff;
+  --bg-dark: #1f2029;
+  --bg-light: #f5f7fa;
+  --text-light: #fafafa;
+  --text-dark: #333333;
+}
+
 body {
-  font-family: 'Poppins', sans-serif;
-  background-color: #f7f9fc;
   margin: 0;
-  color: #333;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  background: var(--bg-light);
+  color: var(--text-dark);
 }
 
 header {
-  background: #4c6ef5;
-  color: white;
-  padding: 15px 30px;
+  background: var(--primary-color);
+  color: var(--text-light);
+  padding: 16px 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-nav a {
-  color: white;
-  margin: 0 15px;
+header a {
+  color: var(--text-light);
   text-decoration: none;
-  font-weight: 500;
+  margin-left: 20px;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 0 20px;
 }
 
 .card {
   background: white;
   border-radius: 12px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  padding: 15px;
-  margin: 10px;
-  text-align: center;
-  width: 200px;
-  display: inline-block;
+  overflow: hidden;
 }
 
-.container {
-  padding: 20px;
+.track-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-button {
-  background: #4c6ef5;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 15px;
+.track-list li {
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
   cursor: pointer;
 }
 
-.player {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: #fff;
-  border-top: 1px solid #ccc;
-  padding: 10px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.track-list li:hover {
+  background: #f0f4ff;
 }
 
+.track-list li img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 12px;
+}
+
+.track-list li .info {
+  flex: 1;
+}
+
+.player-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0; right: 0;
+  background: white;
+  border-top: 1px solid #ddd;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.player-bar .controls button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  margin: 0 10px;
+  cursor: pointer;
+}
