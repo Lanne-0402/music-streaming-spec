@@ -1,4 +1,4 @@
-#### Bảng mô tả chi tiết Use Case
+## Bảng mô tả chi tiết Use Case
 | **STT** | **Tên Use Case**                                 | **Mô tả ngắn gọn**                                                      | **Tác nhân chính**  | **Điều kiện tiên quyết (Pre-condition)**           | **Kết quả (Post-condition)**                       | **Luồng sự kiện chính (Main Flow)**                                                                                                 |
 | ------- | ------------------------------------------------ | ----------------------------------------------------------------------- | ------------------- | -------------------------------------------------- | -------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 | 1       | **Đăng ký/Đăng nhập**                            | Cho phép người dùng tạo tài khoản mới hoặc đăng nhập vào hệ thống.      | Người dùng          | Hệ thống hoạt động, có kết nối mạng.               | Người dùng được xác thực và truy cập vào hệ thống. | (1) Người dùng chọn “Đăng nhập/Đăng ký” → (2) Nhập thông tin → (3) Hệ thống kiểm tra → (4) Xác thực thành công → (5) Vào trang chủ. |
@@ -10,3 +10,72 @@
 | 7       | **Theo dõi nghệ sĩ / album**                     | Người dùng có thể theo dõi nghệ sĩ để nhận cập nhật mới.                | Người dùng          | Đã đăng nhập.                                      | Nghệ sĩ được thêm vào danh sách theo dõi.          | (1) Chọn “Theo dõi” → (2) Hệ thống xác nhận → (3) Cập nhật danh sách người theo dõi.                                                |
 | 8       | **Xem lịch sử nghe và thống kê**                 | Hệ thống lưu lại lịch sử nghe nhạc và hiển thị thống kê cho người dùng. | Người dùng          | Người dùng đã có hoạt động nghe nhạc.              | Hiển thị danh sách lịch sử và biểu đồ thống kê.    | (1) Người dùng chọn “Lịch sử nghe” → (2) Hệ thống truy xuất dữ liệu → (3) Hiển thị danh sách và thống kê.                           |
 | 9       | **Quản lý Nghệ sĩ / Album / Bài hát / Thể loại** | Quản trị viên thêm, chỉnh sửa hoặc xóa thông tin nhạc.                  | Quản trị viên       | Quản trị viên đã đăng nhập vào giao diện quản trị. | Dữ liệu hệ thống được cập nhật.                    | (1) Admin chọn danh mục → (2) Thêm/Sửa/Xóa thông tin → (3) Hệ thống xác nhận cập nhật thành công.                                   |
+
+## Mô tả ER và ERD
+### Thuộc tính quan trọng & ràng buộc
+
+- User
+    PK: id
+    Các thuộc tính: name, email (UNIQUE), password_hash, role, created_at, status
+
+- Artist
+    PK: id
+    name (UNIQUE), bio, country, debut_year, avatar_url
+
+- Album
+    PK: id
+    FK: artist_id → Artist.id (1 artist có nhiều album)
+    title, release_date, cover_url
+
+- Track
+    PK: id
+    FK: album_id → Album.id (có thể NULL cho single)
+    title, duration (CHECK duration > 0), audio_url, lyrics, genre_id → Genre.id, explicit, publish_status
+
+- Genre
+    PK: id
+    name (UNIQUE), description
+
+- Playlist
+    PK: id
+    FK: owner_user_id → User.id
+    title, description, visibility, cover_url, created_at
+
+- PlaylistTrack (bảng nối Playlist ↔ Track)
+    PK tổng hợp: (playlist_id, track_id) → đảm bảo một track chỉ xuất hiện 1 lần trong 1 playlist
+    FK: playlist_id → Playlist.id (ON DELETE CASCADE), track_id → Track.id (ON DELETE CASCADE)
+    sort_order, added_at
+
+- Like (user likes track)
+    PK tổng hợp: (user_id, track_id) (ngăn duplicate)
+    FK: user_id → User.id, track_id → Track.id
+    liked_at
+
+- Follow (user follows artist)
+    PK tổng hợp: (user_id, artist_id)
+    FK: user_id → User.id, artist_id → Artist.id
+    followed_at
+
+- PlayHistory
+    PK: id (có thể dùng serial)
+    FK: user_id → User.id, track_id → Track.id
+    played_at, device, position_sec
+    Business rule: chỉ ghi nếu play ≥ 30s (để lưu ý trong mô tả chức năng, không phải DB constraint).
+
+### Cardinality chính (giải thích nhanh)
+
+- User (1) — Playlist (N) : một user có nhiều playlist.
+
+- Playlist (1) — PlaylistTrack (N) ; Track (1) — PlaylistTrack (N) → vì Playlist ↔ Track là N–N, dùng PlaylistTrack.
+
+- User (1) — Like (N) ; Track (1) — Like (N) → Like là N–N qua bảng Like.
+
+- User (1) — Follow (N) ; Artist (1) — Follow (N) → Follow là N–N qua bảng Follow.
+
+- Artist (1) — Album (N) : 1 artist nhiều album.
+
+- Album (1) — Track (N) : 1 album nhiều track (nhưng track.album_id có thể NULL nếu single => optional).
+
+- Genre (1) — Track (N) : mỗi bài có 1 thể loại.
+
+- User (1) — PlayHistory (N) ; Track (1) — PlayHistory (N) : lịch sử nhiều bản ghi.
