@@ -139,3 +139,11 @@ Mối quan hệ này là N–N: một playlist có nhiều track; một track c�
 | POST        |                                           /tracks/{id}/like | Like/unlike                       |       |          |          |
 | POST        |                                        /artists/{id}/follow | Follow/unfollow                   |       |          |          |
 | Admin: CRUD | /admin/artists, /admin/albums, /admin/tracks, /admin/genres | Admin endpoints (auth role)       |       |          |          |
+
+## Business rules
+
+- Một track chỉ xuất hiện một lần trong một playlist (enforced by PK on playlist_tracks).
+- Lịch sử nghe được ghi khi play >= 30s hoặc user pressed next after ≥30s.
+- Like toggle: duplicate likes không được phép (composite PK).
+- Xoá user → xoá cascade playlist, likes, follows, playlist_tracks (FK ON DELETE CASCADE).
+- Track.duration > 0 (CHECK).
