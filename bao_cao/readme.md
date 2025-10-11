@@ -12,6 +12,8 @@
 | 9       | **Quản lý Nghệ sĩ / Album / Bài hát / Thể loại** | Quản trị viên thêm, chỉnh sửa hoặc xóa thông tin nhạc.                  | Quản trị viên       | Quản trị viên đã đăng nhập vào giao diện quản trị. | Dữ liệu hệ thống được cập nhật.                    | (1) Admin chọn danh mục → (2) Thêm/Sửa/Xóa thông tin → (3) Hệ thống xác nhận cập nhật thành công.                                   |
 
 ![Mô hình Use Case tổng quát](../muc3_1/UCtongquai.png)
+![Mô hình Sequence Phát một bài nhạc](../muc3_2/SD-01_phat1bainhac.png)
+![Mô hình Sequence Thêm bài hát vào Playlist ](../muc3_2/SD-02_thembaivaoplaylist.png)
 ## Mô tả ER và ERD
 ### Thuộc tính quan trọng & ràng buộc
 
@@ -122,6 +124,9 @@ FK user_id → users.id, artist_id → artists.id
 
 - Playlist ↔ Track (N–N)
 Mối quan hệ này là N–N: một playlist có nhiều track; một track có thể xuất hiện trong nhiều playlist. Vì vậy ta sử dụng bảng nối playlist_tracks với PK tổng hợp (playlist_id, track_id). Bảng này chứa thêm sort_order để lưu vị trí bài trong playlist và added_at. FK có ON DELETE CASCADE để khi xóa playlist/track, bản ghi tương ứng bị xoá.
+
+![Mô hình ER Web](../muc3_3/ER_music.png)
+![Mô hình ERD DB](../muc3_4/ERD_music.png)
 
 ## Bảng mô tả API endpoints
 | Method      |                                                        Path | Mô tả                             |       |          |          |
