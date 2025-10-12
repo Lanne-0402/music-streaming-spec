@@ -1,3 +1,4 @@
+# 1. Sơ đồ Use Case Web phát nhạc
 ## Bảng mô tả chi tiết Use Case
 | **STT** | **Tên Use Case**                                 | **Mô tả ngắn gọn**                                                      | **Tác nhân chính**  | **Điều kiện tiên quyết (Pre-condition)**           | **Kết quả (Post-condition)**                       | **Luồng sự kiện chính (Main Flow)**                                                                                                 |
 | ------- | ------------------------------------------------ | ----------------------------------------------------------------------- | ------------------- | -------------------------------------------------- | -------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
@@ -12,58 +13,25 @@
 | 9       | **Quản lý Nghệ sĩ / Album / Bài hát / Thể loại** | Quản trị viên thêm, chỉnh sửa hoặc xóa thông tin nhạc.                  | Quản trị viên       | Quản trị viên đã đăng nhập vào giao diện quản trị. | Dữ liệu hệ thống được cập nhật.                    | (1) Admin chọn danh mục → (2) Thêm/Sửa/Xóa thông tin → (3) Hệ thống xác nhận cập nhật thành công.                                   |
 
 ![Mô hình Use Case tổng quát](../muc3_1/UCtongquai.png)
+
+# 2.Sơ đồ tuần tự (Sequence Diagram)
 ![Mô hình Sequence Phát một bài nhạc](../muc3_2/SD-01_phat1bainhac.png)
 ![Mô hình Sequence Thêm bài hát vào Playlist ](../muc3_2/SD-02_thembaivaoplaylist.png)
+# 3. Sơ đồ ER và ERD
 ## Mô tả ER và ERD
 ### Thuộc tính quan trọng & ràng buộc
 
-- User
-    PK: id
-    Các thuộc tính: name, email (UNIQUE), password_hash, role, created_at, status
-
-- Artist
-    PK: id
-    name (UNIQUE), bio, country, debut_year, avatar_url
-
-- Album
-    PK: id
-    FK: artist_id → Artist.id (1 artist có nhiều album)
-    title, release_date, cover_url
-
-- Track
-    PK: id
-    FK: album_id → Album.id (có thể NULL cho single)
-    title, duration (CHECK duration > 0), audio_url, lyrics, genre_id → Genre.id, explicit, publish_status
-
-- Genre
-    PK: id
-    name (UNIQUE), description
-
-- Playlist
-    PK: id
-    FK: owner_user_id → User.id
-    title, description, visibility, cover_url, created_at
-
-- PlaylistTrack (bảng nối Playlist ↔ Track)
-    PK tổng hợp: (playlist_id, track_id) → đảm bảo một track chỉ xuất hiện 1 lần trong 1 playlist
-    FK: playlist_id → Playlist.id (ON DELETE CASCADE), track_id → Track.id (ON DELETE CASCADE)
-    sort_order, added_at
-
-- Like (user likes track)
-    PK tổng hợp: (user_id, track_id) (ngăn duplicate)
-    FK: user_id → User.id, track_id → Track.id
-    liked_at
-
-- Follow (user follows artist)
-    PK tổng hợp: (user_id, artist_id)
-    FK: user_id → User.id, artist_id → Artist.id
-    followed_at
-
-- PlayHistory
-    PK: id (có thể dùng serial)
-    FK: user_id → User.id, track_id → Track.id
-    played_at, device, position_sec
-    Business rule: chỉ ghi nếu play ≥ 30s (để lưu ý trong mô tả chức năng, không phải DB constraint).
+| Bảng (Table) | Cột | Kiểu dữ liệu gợi ý (PostgreSQL) | Khóa | Ràng buộc (Constraint/Index) |
+| :--- | :--- | :--- | :--- | :--- |
+| **User** | UserID, Email, PasswordHash, DisplayName | SERIAL/UUID | PK | **UNIQUE** (**User.Email**) |
+| **Artist** | ArtistID, Name | SERIAL/UUID | PK | **INDEX** (**Artist.Name**) |
+| **Album** | AlbumID, Title, **ArtistID** (FK) | SERIAL/UUID | PK | UNIQUE (Title, ArtistID) |
+| **Track** | TrackID, Title, **Duration**, **AlbumID** (FK), **GenreID** (FK), StreamURL_HLS | SERIAL/UUID | PK | **INDEX** (**Track.Title**), **CHECK** (**Track.Duration** > 0) |
+| **Playlist** | PlaylistID, Title, **OwnerID** (FK) | SERIAL/UUID | PK | FK ON DELETE CASCADE (với OwnerID) |
+| **PlaylistTrack**| PlaylistID, TrackID, **SortOrder** | UUID/INT | **PK Tổng hợp** | **FK ON DELETE CASCADE** |
+| **Like** | UserID, TrackID | UUID/INT | **PK Tổng hợp** | **FK ON DELETE CASCADE** |
+| **Follow** | UserID, ArtistID | UUID/INT | **PK Tổng hợp** | **FK ON DELETE CASCADE** |
+| **ListenHistory**| HistoryID, UserID (FK), TrackID (FK), ListenTime | SERIAL/UUID | PK | |
 
 ### Cardinality chính (giải thích nhanh)
 
@@ -153,3 +121,4 @@ Mối quan hệ này là N–N: một playlist có nhiều track; một track c�
 - Like toggle: duplicate likes không được phép (composite PK).
 - Xoá user → xoá cascade playlist, likes, follows, playlist_tracks (FK ON DELETE CASCADE).
 - Track.duration > 0 (CHECK).
+
