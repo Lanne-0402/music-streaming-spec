@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>MyMusic — Prototype (Light Green)</title>
+<title>MyMusic Webpage</title>
 
 <!-- CSS: Google font + FontAwesome + minimal style -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -19,7 +19,11 @@
 
 <!-- Header -->
 <header>
-  <div class="logo"><span class="dot"></span> MyMusic</div>
+  <div class="logo">
+    <span class="dot">
+      <img src="../media/logo3.png" alt="Logo" style="height: 45px; vertical-align:middle;">
+    </span> MyMusic
+  </div>
 
   <div class="searchbar" id="top-search">
     <i class="fa fa-magnifying-glass" style="color:var(--muted);margin-right:8px"></i>
@@ -56,7 +60,10 @@
 
     <!-- HOME -->
     <section id="home" class="page active">
-      <div class="title-row"><h2>Chào buổi tối</h2><button class="btn" id="btn-create-playlist">+ Tạo Playlist</button></div>
+    <div class="title-row">
+      <h2>Chào bạn</h2>
+      <button class="btn" id="btn-create-playlist">+ Tạo Playlist</button>
+    </div>
 
       <h3>Gợi ý cho bạn</h3>
       <div class="card-row" id="discover-list"></div>
@@ -67,7 +74,10 @@
 
     <!-- SEARCH -->
     <section id="search" class="page">
-      <div class="title-row"><h2>Tìm kiếm</h2><small class="muted">Tìm theo tiêu đề hoặc nghệ sĩ</small></div>
+      <div class="title-row">
+        <h2>Tìm kiếm</h2>
+        <small class="muted">Tìm theo tiêu đề hoặc nghệ sĩ</small>
+      </div>
       <div style="margin-bottom:12px">
         <input id="search-input" placeholder="Nhập từ khóa..." style="width:60%;padding:8px;border-radius:8px;border:1px solid #e6f0ea"/>
         <button class="btn" id="do-search">Tìm</button>
@@ -77,7 +87,12 @@
 
     <!-- PLAYLISTS -->
     <section id="playlists" class="page">
-      <div class="title-row"><h2>Playlist của bạn</h2><div></div></div>
+      <div class="title-row">
+        <h2>Playlist của bạn</h2>
+        <div>
+
+        </div>
+      </div>
 
       <div id="my-playlists" style="display:flex;gap:12px;flex-wrap:wrap"></div>
 
@@ -101,7 +116,9 @@
     <section id="trackpage" class="page">
       <div class="title-row">
         <h2 id="track-title">Track Title</h2>
-        <div><button class="btn" id="btn-like">❤ Yêu thích</button></div>
+        <div>
+          <button class="btn" id="btn-like">❤ Yêu thích</button>
+        </div>
       </div>
 
       <div class="track-panel">
@@ -199,9 +216,18 @@
 /* If you want to use local files: place them in /media and use "media/song.mp3" as URL */
 const seed = {
   artists: [
-    {id:1,name:"Artist A", avatar:"https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=500"},
-    {id:2,name:"Artist B", avatar:"https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=500"},
-    {id:3,name:"Artist C", avatar:"https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=500"}
+    {id:1,name:"Thịnh Suy", avatar:"../media/thinhsuy.jpg"},
+    {id:2,name:"Dương Domic", avatar:"../media/duongdomic.jpg"},
+    {id:3,name:"LowG", avatar:"../media/lowg.jpg"},
+    {id:4,name:"Vũ.", avatar:"../media/vu.jpg"},
+    {id:5,name:"Strong Trọng Hiếu", avatar:"../media/strongtronghieu.jpg"},
+    {id:6,name:"tlinh", avatar:"../media/tlinh.png"},
+    {id:7,name:"Soobin Hoàng Sơn", avatar:"../media/soobin.jpg"},
+    {id:8,name:"Nguyễn Hùng", avatar:"nguyenhung.jpg"},
+    {id:9,name:"Ed Sheeran", avatar:"../media/edsheeran.png"},
+    {id:10,name:"Taylor Swift", avatar:"../media/taylorswift.jpg"},
+    {id:11,name:"Sia", avatar:"../media/sia.jpg"},
+    {id:12,name:"Hoà Minzy", avatar:"../media/hoaminzy.JPG"}
   ],
   albums: [
     {id:1,artistId:1,title:"Album One", cover:"https://images.unsplash.com/photo-1507874457470-272b3c8d8ee2?w=600"},
@@ -209,7 +235,7 @@ const seed = {
     {id:3,artistId:3,title:"Album Three", cover:"https://images.unsplash.com/photo-1485579149621-3123dd979885?w=600"}
   ],
   tracks: [
-    {id:1,albumId:1, title:"Sunset Vibes", artistId:1, duration:230, url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", cover:"https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800", lyrics:"Lời bài hát Sunset Vibes..."},
+    {id:1,albumId:1, title:"Thường", artistId:1, url:"../media/thuong_thinhsuy.mp3", cover:"../media/thinhsuy.jpg", lyrics:"Lời bài hát Thường..."},
     {id:2,albumId:1, title:"Dreaming High", artistId:1, duration:210, url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3", cover:"https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800", lyrics:"Lời bài hát Dreaming High..."},
     {id:3,albumId:2, title:"Neon Lights", artistId:2, duration:240, url:"https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8", cover:"https://images.unsplash.com/photo-1487215078519-e21cc028cb29?w=800", lyrics:"Lời bài Neon Lights... (HLS stream sample)"},
     {id:4,albumId:3, title:"Chill Breeze", artistId:3, duration:200, url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3", cover:"https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=800", lyrics:"Lời bài Chill Breeze..."},
