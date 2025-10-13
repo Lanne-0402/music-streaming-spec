@@ -1,124 +1,142 @@
-# 1. Sơ đồ Use Case Web phát nhạc
-## Bảng mô tả chi tiết Use Case
-| **STT** | **Tên Use Case**                                 | **Mô tả ngắn gọn**                                                      | **Tác nhân chính**  | **Điều kiện tiên quyết (Pre-condition)**           | **Kết quả (Post-condition)**                       | **Luồng sự kiện chính (Main Flow)**                                                                                                 |
-| ------- | ------------------------------------------------ | ----------------------------------------------------------------------- | ------------------- | -------------------------------------------------- | -------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| 1       | **Đăng ký/Đăng nhập**                            | Cho phép người dùng tạo tài khoản mới hoặc đăng nhập vào hệ thống.      | Người dùng          | Hệ thống hoạt động, có kết nối mạng.               | Người dùng được xác thực và truy cập vào hệ thống. | (1) Người dùng chọn “Đăng nhập/Đăng ký” → (2) Nhập thông tin → (3) Hệ thống kiểm tra → (4) Xác thực thành công → (5) Vào trang chủ. |
-| 2       | **Tìm kiếm bài hát / nghệ sĩ / album**           | Người dùng nhập từ khóa để tìm nội dung mong muốn.                      | Người dùng          | Người dùng đã đăng nhập.                           | Hệ thống hiển thị danh sách kết quả phù hợp.       | (1) Người dùng nhập từ khóa → (2) Hệ thống xử lý tìm kiếm → (3) Hiển thị kết quả.                                                   |
-| 3       | **Phát nhạc**                                    | Hệ thống phát bài hát do người dùng chọn.                               | Người dùng / Player | Người dùng đã chọn bài hát.                        | Bài hát phát thành công trên trình phát nhạc.      | (1) Người dùng chọn bài hát → (2) Hệ thống gửi yêu cầu phát → (3) Player stream nhạc → (4) Ghi lại lịch sử nghe.                    |
-| 4       | **Xem trang bài hát + lời nhạc**                 | Hiển thị thông tin chi tiết về bài hát, bao gồm lời và nghệ sĩ.         | Người dùng          | Bài hát đã được chọn.                              | Trang bài hát hiển thị thông tin đầy đủ.           | (1) Người dùng mở bài hát → (2) Hệ thống truy xuất dữ liệu → (3) Hiển thị thông tin và lời nhạc.                                    |
-| 5       | **Tạo và Quản lý Playlist**                      | Người dùng có thể tạo, chỉnh sửa, hoặc xóa playlist cá nhân.            | Người dùng          | Đã đăng nhập.                                      | Playlist được cập nhật hoặc lưu mới.               | (1) Chọn “Tạo playlist mới” → (2) Nhập tên, chọn bài hát → (3) Lưu playlist → (4) Hệ thống xác nhận thành công.                     |
-| 6       | **Yêu thích bài hát**                            | Người dùng đánh dấu bài hát yêu thích để nghe lại.                      | Người dùng          | Đã đăng nhập.                                      | Danh sách yêu thích được cập nhật.                 | (1) Nhấn biểu tượng “❤” → (2) Hệ thống lưu vào danh sách yêu thích → (3) Hiển thị trạng thái đã lưu.                                |
-| 7       | **Theo dõi nghệ sĩ / album**                     | Người dùng có thể theo dõi nghệ sĩ để nhận cập nhật mới.                | Người dùng          | Đã đăng nhập.                                      | Nghệ sĩ được thêm vào danh sách theo dõi.          | (1) Chọn “Theo dõi” → (2) Hệ thống xác nhận → (3) Cập nhật danh sách người theo dõi.                                                |
-| 8       | **Xem lịch sử nghe và thống kê**                 | Hệ thống lưu lại lịch sử nghe nhạc và hiển thị thống kê cho người dùng. | Người dùng          | Người dùng đã có hoạt động nghe nhạc.              | Hiển thị danh sách lịch sử và biểu đồ thống kê.    | (1) Người dùng chọn “Lịch sử nghe” → (2) Hệ thống truy xuất dữ liệu → (3) Hiển thị danh sách và thống kê.                           |
-| 9       | **Quản lý Nghệ sĩ / Album / Bài hát / Thể loại** | Quản trị viên thêm, chỉnh sửa hoặc xóa thông tin nhạc.                  | Quản trị viên       | Quản trị viên đã đăng nhập vào giao diện quản trị. | Dữ liệu hệ thống được cập nhật.                    | (1) Admin chọn danh mục → (2) Thêm/Sửa/Xóa thông tin → (3) Hệ thống xác nhận cập nhật thành công.                                   |
+Tuyệt vời! Đây là toàn bộ báo cáo phân tích và thiết kế dự án **MyMusic Streaming Web Application** của bạn, được trình bày dưới định dạng **Markdown** (`.md`) hoàn chỉnh. Bạn có thể sao chép toàn bộ nội dung này vào file `index.html` hoặc `README.md` trên GitHub của mình.
 
-![Mô hình Use Case tổng quát](../muc3_1/UCtongquai.png)
+---
 
-# 2.Sơ đồ tuần tự (Sequence Diagram)
-![Mô hình Sequence Phát một bài nhạc](../muc3_2/SD-01_phat1bainhac.png)
-![Mô hình Sequence Thêm bài hát vào Playlist ](../muc3_2/SD-02_thembaivaoplaylist.png)
-# 3. Sơ đồ ER và ERD
-## Mô tả ER và ERD
-### Thuộc tính quan trọng & ràng buộc
+# BÁO CÁO PHÂN TÍCH & THIẾT KẾ HỆ THỐNG - MYMUSIC STREAMING
+
+## 1. TỔNG QUAN DỰ ÁN
+
+Dự án **MyMusic** là một hệ thống nghe nhạc trực tuyến (Music Streaming Web Application) cho phép người dùng tìm kiếm, phát nhạc, quản lý playlist cá nhân, và theo dõi nghệ sĩ. Hệ thống mô phỏng việc phát nhạc theo chuẩn **HLS/DASH** ở mức prototype.
+
+---
+
+## 2. PHÂN TÍCH VÀ THIẾT KẾ CHỨC NĂNG (UML)
+
+### 2.1. Sơ đồ Use Case (UC)
+
+#### A. Use Case Người Dùng và Streaming
+
+Sơ đồ mô tả các chức năng cốt lõi người dùng tương tác, bao gồm Đăng nhập, Phát nhạc, Cá nhân hóa và mối quan hệ với hệ thống bên ngoài (**Audio CDN**).
+
+**Ảnh Sơ đồ Use Case Người dùng:** 
+
+**Mô tả Quan hệ Cốt lõi:**
+
+| Use Case Chính | Use Case Phụ | Quan hệ | Ý nghĩa |
+| :--- | :--- | :--- | :--- |
+| **Phát/Điều khiển Nhạc** | **Ghi nhận Lượt nghe** | `include` | Bắt buộc (Sau $\ge 30$ giây, hệ thống phải ghi nhận lịch sử). |
+| **Đăng nhập** | **Đăng nhập Social SSO** | `extends` | Hành vi tùy chọn, mở rộng phương thức đăng nhập cơ bản. |
+| **Quản lý Playlist** | **Thêm/Xóa Bài hát** | `extends` | Hành vi tùy chọn trong quá trình quản lý playlist. |
+
+#### B. Use Case Quản Trị (Admin - CRUD)
+
+Sơ đồ mô tả các chức năng Quản trị viên sử dụng để quản lý nội dung của hệ thống.
+
+**Ảnh Sơ đồ Use Case Admin:** 
+
+| Use Case Chính | Use Case Phụ | Quan hệ | Ý nghĩa |
+| :--- | :--- | :--- | :--- |
+| **Quản lý Bài hát (CRUD)** | **Upload File Mock/Stream** | `extends` | Chức năng tùy chọn để nhập dữ liệu demo và đường dẫn stream. |
+
+### 2.2. Sơ đồ Trình tự (Sequence Diagram - SD)
+
+#### A. SD-01: Phát nhạc một bài (Playback Flow)
+
+Mô tả luồng tương tác khi người dùng chọn và phát một bài hát, bao gồm việc gọi dữ liệu stream và ghi nhận lượt nghe (**scrobble**).
+
+**Ảnh Sơ đồ Trình tự Phát nhạc:** 
+
+| Đối tượng (Lifeline) | Mô tả |
+| :--- | :--- |
+| **User** | Người dùng tương tác. |
+| **WebApp** | Giao diện người dùng và logic trung gian. |
+| **Player** | Trình phát nhạc (**HTML5/JS component**). |
+| **TrackService** | Dịch vụ **Back-end** xử lý metadata và stream URL. |
+| **Audio CDN (Mock)** | Hệ thống giả lập cung cấp file nhạc (**stream**). |
+
+#### B. SD-02: Thêm bài vào Playlist
+
+Mô tả logic Back-end khi thêm bài hát, bao gồm kiểm tra ràng buộc **duy nhất** (trùng lặp) và cập nhật thứ tự (**SortOrder**).
+
+**Ảnh Sơ đồ Trình tự Thêm bài vào Playlist:** 
+
+---
+
+## 3. THIẾT KẾ CƠ SỞ DỮ LIỆU
+
+### 3.1. Sơ đồ Thực thể–Kết hợp (ER Diagram)
+
+Sơ đồ mô tả các thực thể chính, mối quan hệ và bản chất (Cardinality).
+
+**Ảnh Sơ đồ ER:** 
+
+### 3.2. Sơ đồ CSDL Quan hệ (ERD - Physical/Logical)
+
+Bảng chi tiết các bảng, khóa, kiểu dữ liệu và ràng buộc, sử dụng PostgreSQL/MySQL.
 
 | Bảng (Table) | Cột | Kiểu dữ liệu gợi ý (PostgreSQL) | Khóa | Ràng buộc (Constraint/Index) |
 | :--- | :--- | :--- | :--- | :--- |
-| **User** | UserID, Email, PasswordHash, DisplayName | SERIAL/UUID | PK | **UNIQUE** (**User.Email**) |
-| **Artist** | ArtistID, Name | SERIAL/UUID | PK | **INDEX** (**Artist.Name**) |
+| **User** | UserID, **Email**, PasswordHash | SERIAL/UUID | PK | **UNIQUE** (**User.Email**) |
+| **Artist** | ArtistID, **Name** | SERIAL/UUID | PK | **INDEX** (**Artist.Name**) |
 | **Album** | AlbumID, Title, **ArtistID** (FK) | SERIAL/UUID | PK | UNIQUE (Title, ArtistID) |
-| **Track** | TrackID, Title, **Duration**, **AlbumID** (FK), **GenreID** (FK), StreamURL_HLS | SERIAL/UUID | PK | **INDEX** (**Track.Title**), **CHECK** (**Track.Duration** > 0) |
-| **Playlist** | PlaylistID, Title, **OwnerID** (FK) | SERIAL/UUID | PK | FK ON DELETE CASCADE (với OwnerID) |
+| **Track** | TrackID, **Title**, **Duration**, AlbumID (FK), GenreID (FK), StreamURL_HLS | SERIAL/UUID | PK | **INDEX** (**Track.Title**), **CHECK** (**Duration** > 0) |
+| **Playlist** | PlaylistID, **OwnerID** (FK) | SERIAL/UUID | PK | FK **ON DELETE CASCADE** (với OwnerID) |
 | **PlaylistTrack**| PlaylistID, TrackID, **SortOrder** | UUID/INT | **PK Tổng hợp** | **FK ON DELETE CASCADE** |
 | **Like** | UserID, TrackID | UUID/INT | **PK Tổng hợp** | **FK ON DELETE CASCADE** |
 | **Follow** | UserID, ArtistID | UUID/INT | **PK Tổng hợp** | **FK ON DELETE CASCADE** |
-| **ListenHistory**| HistoryID, UserID (FK), TrackID (FK), ListenTime | SERIAL/UUID | PK | |
+| **ListenHistory**| HistoryID, UserID (FK), TrackID (FK) | SERIAL/UUID | PK | |
 
-### Cardinality chính (giải thích nhanh)
+---
 
-- User (1) — Playlist (N) : một user có nhiều playlist.
+## 4. QUY TẮC NGHIỆP VỤ & TEST CASE
 
-- Playlist (1) — PlaylistTrack (N) ; Track (1) — PlaylistTrack (N) → vì Playlist ↔ Track là N–N, dùng PlaylistTrack.
+### 4.1. Quy tắc Nghiệp vụ (Business Rules - BR)
 
-- User (1) — Like (N) ; Track (1) — Like (N) → Like là N–N qua bảng Like.
+| Mã BR | Tên Quy tắc | Mô tả Logic | Áp dụng (Thành phần) |
+| :--- | :--- | :--- | :--- |
+| **BR-01** | Tính Duy nhất Playlist | Một bài hát chỉ xuất hiện **một lần** trong một playlist. | DB (Khóa Tổng hợp `PlaylistTrack`) & Logic Back-end |
+| **BR-02** | Logic Ghi nhận Nghe | Lịch sử nghe được ghi nhận (scrobble) khi play **$\ge 30$ giây** hoặc user nhấn next/previous sau **$\ge 30$ giây**. | Front-end (Player JS) & Back-end (TrackService) |
 
-- User (1) — Follow (N) ; Artist (1) — Follow (N) → Follow là N–N qua bảng Follow.
+### 4.2. Bảng 10 Test Case Mẫu
 
-- Artist (1) — Album (N) : 1 artist nhiều album.
+| Mã TC | Chức năng (UC) | Quy tắc/Logic Kiểm tra | Kết quả Mong muốn |
+| :--- | :--- | :--- | :--- |
+| **TC-01** | Playlist | Thêm bài trùng lặp (BR-01) | Hệ thống phải báo lỗi "Bài hát đã có trong Playlist." |
+| **TC-02** | Playback | Nghe dưới 30 giây (BR-02) | **Không** ghi nhận lượt nghe trong Lịch sử. |
+| **TC-03** | Playback | Nghe trên 30 giây (BR-02) | **Ghi nhận** lượt nghe thành công. |
+| **TC-04** | Playback | Next sau 40 giây (BR-02) | **Ghi nhận** lượt nghe cho bài hát vừa phát. |
+| **TC-05** | Cá nhân hóa | Like trùng lặp | Duy trì một bản ghi **Like** duy nhất. |
+| **TC-06** | Cá nhân hóa | Un-like | Xóa bản ghi **Like** khỏi CSDL. |
+| **TC-07** | Tìm kiếm | Tìm kiếm không dấu | Trả về kết quả khớp với từ khóa có dấu (ví dụ: "yeu em" $\rightarrow$ "Yêu em"). |
+| **TC-08** | Playlist | Sắp xếp Drag-drop | Cột `SortOrder` trong `PlaylistTrack` được cập nhật đúng thứ tự mới. |
+| **TC-09** | Admin | Xóa Bài hát | Xóa thành công Bài hát và tự động xóa các bản ghi liên quan trong `PlaylistTrack`, `Like` (**ON DELETE CASCADE**). |
+| **TC-10** | Auth | Đăng nhập hợp lệ | Chuyển hướng thành công đến trang **Home/Discover**. |
 
-- Album (1) — Track (N) : 1 album nhiều track (nhưng track.album_id có thể NULL nếu single => optional).
+---
 
-- Genre (1) — Track (N) : mỗi bài có 1 thể loại.
+## 5. TỔNG HỢP & GIAO NỘP
 
-- User (1) — PlayHistory (N) ; Track (1) — PlayHistory (N) : lịch sử nhiều bản ghi.
+### 5.1. Bảng API (Mock Endpoints)
 
-#### Dưới đây là ví dụ mapping cho các quan hệ chính:
+Đây là các endpoint chính mà Back-end cần cung cấp cho Front-end (giả lập ở mức prototype).
 
-- Playlist.owner_user_id → FK users.id (1 user có N playlist). SQL:
-owner_user_id INT REFERENCES users(id) ON DELETE CASCADE
+| Mục đích | Method | Endpoint (URL) | Mô tả Dữ liệu |
+| :--- | :--- | :--- | :--- |
+| **Đăng nhập** | `POST` | `/api/auth/login` | Trả về `token` và thông tin `User`. |
+| **Playlist** | `GET` | `/api/user/playlists` | Danh sách Playlist của User. |
+| **Playlist** | `POST` | `/api/playlist/{id}/track` | Thêm bài hát vào Playlist (kiểm tra BR-01). |
+| **Phát nhạc** | `GET` | `/api/track/{id}/meta` | Trả về `stream_url` (HLS/DASH) và `lyrics`. |
+| **Ghi nhận Nghe** | `POST` | `/api/track/{id}/scrobble` | Ghi nhận lượt nghe vào `ListenHistory` (theo BR-02). |
+| **Tìm kiếm** | `GET` | `/api/search?q={query}` | Trả về kết quả Bài hát, Album, Nghệ sĩ. |
 
-- PlaylistTrack(playlist_id, track_id):
+### 5.2. Link & Tài liệu
 
-PK: (playlist_id, track_id) (ngăn duplicate)
+| Tài liệu | Link (Cần cập nhật) | Ghi chú |
+| :--- | :--- | :--- |
+| **Link Prototype HTML** | `[Chèn link GitHub Pages hoặc file index.html/home.html]` | Trình bày 5 màn hình A, B, C, D, E, F. |
+| **Video Demo (3-5 phút)** | `[Chèn link YouTube/Google Drive Video Demo]` | Minh họa các luồng chính và Test Case. |
+| **Code Repository** | `[Chèn link github.com/<username>/music-streaming-spec]` | Kho lưu trữ mã nguồn của báo cáo và prototype. |
 
-FKs: playlist_id → playlists.id ON DELETE CASCADE; track_id → tracks.id ON DELETE CASCADE
+***
 
-- Like(user_id, track_id):
-
-PK (user_id, track_id)
-
-FK user_id → users.id, track_id → tracks.id
-
-- Follow(user_id, artist_id):
-
-PK (user_id, artist_id)
-
-FK user_id → users.id, artist_id → artists.id
-
-- Album.artist_id → artists.id (1 artist → N album).
-
-- Track.album_id → albums.id (optional) và Track.genre_id → genres.id.
-
-- PlayHistory.user_id → users.id, PlayHistory.track_id → tracks.id.
-
-### Tùy chọn hiện thực và ràng buộc
-
-- Unique constraints: users.email, artists.name, genres.name. Ghi trong ERD 
-
-- Check constraints: tracks.duration > 0 (DB-level CHECK).
-
-- Referential actions: theo đề bài, dùng ON DELETE CASCADE cho bảng nối (PlaylistTrack, Like, Follow) → khi xóa user/playlist/track → xóa luôn các bản ghi liên quan.
-
-#### Ví dụ mô tả 1 quan hệ (để chèn vào báo cáo)
-
-- Playlist ↔ Track (N–N)
-Mối quan hệ này là N–N: một playlist có nhiều track; một track có thể xuất hiện trong nhiều playlist. Vì vậy ta sử dụng bảng nối playlist_tracks với PK tổng hợp (playlist_id, track_id). Bảng này chứa thêm sort_order để lưu vị trí bài trong playlist và added_at. FK có ON DELETE CASCADE để khi xóa playlist/track, bản ghi tương ứng bị xoá.
-
-![Mô hình ER Web](../muc3_3/ER_music.png)
-![Mô hình ERD DB](../muc3_4/ERD_music.png)
-
-## Bảng mô tả API endpoints
-| Method      |                                                        Path | Mô tả                             |       |          |          |
-| ----------- | ----------------------------------------------------------: | --------------------------------- | ----- | -------- | -------- |
-| POST        |                                              /auth/register | Đăng ký (email/pass)              |       |          |          |
-| POST        |                                                 /auth/login | Đăng nhập (token)                 |       |          |          |
-| POST        |                                                   /auth/otp | Gửi/verify OTP                    |       |          |          |
-| GET         |                                       /search?q=&type=track | artist                            | album | playlist | Tìm kiếm |
-| GET         |                                                /tracks/{id} | Lấy metadata + lyrics             |       |          |          |
-| GET         |                                         /tracks/{id}/stream | Trả streaming URL (m3u8 hoặc mp3) |       |          |          |
-| POST        |                                           /tracks/{id}/play | Scrobble/play event               |       |          |          |
-| POST        |                                                  /playlists | Tạo playlist                      |       |          |          |
-| PUT         |                                             /playlists/{id} | Sửa playlist                      |       |          |          |
-| POST        |                                      /playlists/{id}/tracks | Thêm track                        |       |          |          |
-| DELETE      |                            /playlists/{id}/tracks/{trackId} | Xoá track                         |       |          |          |
-| POST        |                                           /tracks/{id}/like | Like/unlike                       |       |          |          |
-| POST        |                                        /artists/{id}/follow | Follow/unfollow                   |       |          |          |
-| Admin: CRUD | /admin/artists, /admin/albums, /admin/tracks, /admin/genres | Admin endpoints (auth role)       |       |          |          |
-
-## Business rules
-
-- Một track chỉ xuất hiện một lần trong một playlist (enforced by PK on playlist_tracks).
-- Lịch sử nghe được ghi khi play >= 30s hoặc user pressed next after ≥30s.
-- Like toggle: duplicate likes không được phép (composite PK).
-- Xoá user → xoá cascade playlist, likes, follows, playlist_tracks (FK ON DELETE CASCADE).
-- Track.duration > 0 (CHECK).
-
+**Lưu ý quan trọng cho người dùng:** Vui lòng thay thế các placeholder `[Chèn link...]` bằng các liên kết và hình ảnh thực tế sau khi bạn đã hoàn thành việc xây dựng Prototype và upload các tài liệu lên GitHub/Drive.
