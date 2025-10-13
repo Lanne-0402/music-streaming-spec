@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Báo Cáo Phân Tích & Thiết Kế - MyMusic Streaming</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* CSS CƠ BẢN VÀ MÀU SẮC */
+        :root {
+            --bg-dark: #1e1e1e; /* Nền tối */
+            --bg-light: #2c2c2c; /* Nền khối nhẹ hơn */
+            --accent-color: #69f0ae; /* Xanh lá Pastel (A400) */
+            --text-primary: #f5f5f5; /* Chữ Trắng nhạt */
+            --text-secondary: #aaaaaa; /* Chữ xám */
+            --border-color: #444;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: var(--bg-light);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        /* HEADING */
+        h1, h2, h3, h4 {
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 5px;
+            margin-top: 25px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            text-align: center;
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+
+        /* TABLE STYLING */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.9em;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--accent-color);
+            color: var(--bg-dark);
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        tr:nth-child(even) {
+            background-color: #333; /* Dòng chẵn */
+        }
+
+        tr:hover {
+            background-color: #444;
+        }
+
+        /* CODE & LINKS */
+        code {
+            background-color: #383838;
+            padding: 2px 4px;
+            border-radius: 3px;
+            color: var(--accent-color);
+        }
+        
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        a:hover {
+            color: #ccff90; /* Xanh sáng hơn khi hover */
+        }
+
+        .placeholder {
+            color: #ff6e6e; /* Màu đỏ nổi bật cho phần cần điền */
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .diagram-section {
+            text-align: center;
+            margin: 30px 0;
+            padding: 15px;
+            border: 1px dashed var(--border-color);
+            background-color: #242424;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1><i class="fas fa-headphones-alt"></i> BÁO CÁO PHÂN TÍCH & THIẾT KẾ HỆ THỐNG - MYMUSIC STREAMING</h1>
+        
+        <p>Báo cáo này trình bày kết quả phân tích yêu cầu, thiết kế UML (Use Case, Sequence) và thiết kế Cơ sở Dữ liệu (ERD) cho dự án ứng dụng web phát nhạc trực tuyến **MyMusic**.</p>
+        
+        <hr>
+
+        <h2>2. PHÂN TÍCH VÀ THIẾT KẾ CHỨC NĂNG (UML)</h2>
+
+        <h3>2.1. Sơ đồ Use Case (UC)</h3>
+
+        <h4>A. Use Case Người Dùng và Streaming</h4>
+        <p>Sơ đồ mô tả các chức năng cốt lõi người dùng tương tác, bao gồm Đăng nhập, Phát nhạc, Cá nhân hóa và mối quan hệ với **Audio CDN**.</p>
+        
+        <div class="diagram-section">
+            <p><strong>Ảnh Sơ đồ Use Case Người dùng:</strong> 
+            <span class="placeholder">
+                <img src="../muc3_1/UC_UserSystem.drawio.png" alt="Use Case Diagram User System">
+            </span></p>
+        </div>
+
+        <h4>B. Use Case Quản Trị (Admin - CRUD)</h4>
+        <p>Sơ đồ mô tả các chức năng Quản trị viên sử dụng để quản lý nội dung chính của hệ thống.</p>
+        
+        <div class="diagram-section">
+            <p><strong>Ảnh Sơ đồ Use Case Admin:</strong> <br>
+                <span class="placeholder">
+                    <img src="../muc3_1/UC%20Admin.drawio.png" alt="Use Case Diagram Admin">
+                </span></p>
+        </div>
+
+        <h3>2.2. Sơ đồ Trình tự (Sequence Diagram - SD)</h3>
+
+        <h4>A. SD-01: Phát nhạc một bài (Playback Flow)</h4>
+        <p>Mô tả luồng tương tác khi người dùng chọn và phát nhạc, bao gồm việc gọi dữ liệu stream và ghi nhận lượt nghe (scrobble).</p>
+        
+        <div class="diagram-section">
+            <p><strong>Ảnh Sơ đồ Trình tự Phát nhạc:</strong>
+                <span class="placeholder">
+                    <img src="../muc3_2/SD01_Phatnhac.png" alt="Sequence Diagram Playback">
+                </span></p>
+        </div>
+        
+        <h4>B. SD-02: Thêm bài vào Playlist</h4>
+        <p>Mô tả logic Back-end khi thêm bài hát, bao gồm kiểm tra ràng buộc duy nhất (trùng lặp) và cập nhật thứ tự (SortOrder).</p>
+        
+        <div class="diagram-section">
+            <p><strong>Ảnh Sơ đồ Trình tự Thêm bài vào Playlist:</strong> 
+                <span class="placeholder">
+                    <img src="../muc3_2/SD02_Thembai.png" alt="Sequence Diagram Add to Playlist">
+                </span></p>
+        </div>
+
+        <hr>
+
+        <h2>3. THIẾT KẾ CƠ SỞ DỮ LIỆU</h2>
+
+        <h3>3.1. Sơ đồ Thực thể-Kết hợp (ER Diagram)</h3>
+        
+        <h4>ER Web</h4>
+        <div class="diagram-section">
+            <p><strong>Ảnh Sơ đồ ER (Conceptual):</strong> 
+                <span class="placeholder">
+                    <img src="../muc3_3/ER_music.png" alt="ER Diagram Conceptual">
+                </span></p>
+        </div>
+        
+        <h4>ERD Web</h4>
+        <div class="diagram-section">
+            <p><strong>Ảnh Sơ đồ ER (Conceptual):</strong> 
+                <span class="placeholder">
+                    <img src="../muc3_4/ERD_Web.png" alt="ER Diagram Conceptual">
+                </span></p>
+        </div>
+
+        <h3>3.2. Sơ đồ CSDL Quan hệ (ERD - Physical/Logical)</h3>
+        <p>Bảng chi tiết các bảng, khóa, kiểu dữ liệu và ràng buộc, sử dụng PostgreSQL/MySQL.</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Bảng (Table)</th>
+                    <th>Cột</th>
+                    <th>Kiểu dữ liệu gợi ý</th>
+                    <th>Khóa</th>
+                    <th>Ràng buộc (Constraint/Index)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>User</strong></td>
+                    <td>UserID, <strong>Email</strong>, PasswordHash</td>
+                    <td>SERIAL/UUID</td>
+                    <td>PK</td>
+                    <td><strong>UNIQUE</strong> (User.Email)</td>
+                </tr>
+                <tr>
+                    <td><strong>Artist</strong></td>
+                    <td>ArtistID, <strong>Name</strong></td>
+                    <td>SERIAL/UUID</td>
+                    <td>PK</td>
+                    <td><strong>INDEX</strong> (Artist.Name)</td>
+                </tr>
+                <tr>
+                    <td><strong>Album</strong></td>
+                    <td>AlbumID, <strong>Title</strong>, ArtistID (FK)</td>
+                    <td>SERIAL/UUID</td>
+                    <td>PK</td>
+                    <td><strong>INDEX</strong> (Album.Title)</td>
+                <tr>
+                    <td><strong>Track</strong></td>
+                    <td>TrackID, <strong>Title</strong>, <strong>Duration</strong>, AlbumID (FK)</td>
+                    <td>SERIAL/UUID</td>
+                    <td>PK</td>
+                    <td><strong>INDEX</strong> (Track.Title), <strong>CHECK</strong> (Duration > 0)</td>
+                </tr>
+                <tr>
+                    <td><strong>Playlist</strong></td>
+                    <td>PlaylistID, <strong>Name</strong>, UserID (FK)</td>
+                    <td>SERIAL/UUID</td>
+                    <td>PK</td>
+                    <td><strong>INDEX</strong> (Playlist.Name)</td>
+                <tr>
+                    <td><strong>PlaylistTrack</strong></td>
+                    <td>PlaylistID, TrackID, <strong>SortOrder</strong></td>
+                    <td>UUID/INT</td>
+                    <td><strong>PK Tổng hợp</strong></td>
+                    <td><strong>FK ON DELETE CASCADE</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Like</strong></td>
+                    <td>UserID, TrackID</td>
+                    <td>UUID/INT</td>
+                    <td><strong>PK Tổng hợp</strong></td>
+                    <td><strong>FK ON DELETE CASCADE</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Follow</strong></td>
+                    <td>UserID, ArtistID</td>
+                    <td>UUID/INT</td>
+                    <td><strong>PK Tổng hợp</strong></td>
+                    <td><strong>FK ON DELETE CASCADE</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>ListenHistory</strong></td>
+                    <td>ListenID, UserID (FK), TrackID (FK), ListenTimestamp</td>
+                    <td>SERIAL/UUID, TIMESTAMP</td>
+                    <td>PK</td>
+                    <td><strong>INDEX</strong> (UserID, ListenTimestamp DESC)</td>
+                </tbody>
+        </table>
+
+        <hr>
+
+        <h2>4. QUY TẮC NGHIỆP VỤ & TEST CASE</h2>
+
+        <h3>4.1. Quy tắc Nghiệp vụ (Business Rules - BR)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Mã BR</th>
+                    <th>Tên Quy tắc</th>
+                    <th>Mô tả Logic</th>
+                    <th>Áp dụng (Thành phần)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>BR-01</strong></td>
+                    <td>Tính Duy nhất Playlist</td>
+                    <td>Một bài hát chỉ xuất hiện <strong>một lần</strong> trong một playlist.</td>
+                    <td>DB (Khóa Tổng hợp PlaylistTrack) & Logic Back-end</td>
+                </tr>
+                <tr>
+                    <td><strong>BR-02</strong></td>
+                    <td>Logic Ghi nhận Nghe</td>
+                    <td>Lịch sử nghe được ghi nhận (scrobble) khi play <strong>≥ 30 giây</strong> hoặc user nhấn next/previous sau <strong>≥ 30 giây</strong>.</td>
+                    <td>Front-end (Player JS) & Back-end (TrackService)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>4.2. Bảng 10 Test Case Mẫu</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Mã TC</th>
+                    <th>Chức năng (UC)</th>
+                    <th>Quy tắc/Logic Kiểm tra</th>
+                    <th>Kết quả Mong muốn</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>TC-01</strong></td>
+                    <td>Playlist</td>
+                    <td>Thêm bài trùng lặp (BR-01)</td>
+                    <td>Báo lỗi "Bài hát đã có trong Playlist."</td>
+                </tr>
+                <tr>
+                    <td><strong>TC-02</strong></td>
+                    <td>Playback</td>
+                    <td>Nghe dưới 30 giây (BR-02)</td>
+                    <td><strong>Không ghi nhận</strong> lượt nghe trong lịch sử.</td>
+                <tr>
+                    <td><strong>TC-03</strong></td>
+                    <td>Playback</td>
+                    <td>Nghe trên 30 giây (BR-02)</td>
+                    <td><strong>Ghi nhận</strong> lượt nghe thành công.</td>
+                </tr>
+                <tr>
+                    <td><strong>TC-04</strong></td>
+                    <td>Playback</td>
+                    <td>Next sau 40 giây (BR-02)</td>
+                    <td><strong>Ghi nhận</strong> lượt nghe cho bài hát vừa phát..</td>
+                <tr>
+                    <td><strong>TC-05</strong></td>
+                    <td>Cá nhân hóa</td>
+                    <td>Like trùng lặp</td>
+                    <td>Duy trì một bản ghi <strong>Like</strong> duy nhất.</td>
+                </tr>
+                <tr>
+                    <td><strong>TC-06</strong></td>
+                    <td>Cá nhân hóa</td>
+                    <td>Un-like</td>
+                    <td>Xóa bản ghi Like <strong>Like</strong> khỏi CSDL.</td>
+                </tr>
+                <tr>
+                    <td><strong>TC-07</strong></td>
+                    <td>Tìm kiếm</td>
+                    <td>Tìm kiếm không dấu</td>
+                    <td>Trả về kết quả khớp với từ khóa có dấu.</td>
+                </tr>
+                <tr>
+                    <td><strong>TC-08</strong></td>
+                    <td>Playlist</td>
+                    <td>Sắp xếp Drag-drop</td>
+                    <td>Cột <code>SortOrder</code> được cập nhật đúng thứ tự mới.</td>
+                </tr>
+                <tr>
+                    <td><strong>TC-09</strong></td>
+                    <td>Admin</td>
+                    <td>Xóa Bài hát</td>
+                    <td>Xóa thành công Bài hát và tự động xóa các bản ghi liên quan trong <code>PlaylistTrack, Like</code> <strong>(ON DELETE CASCADE)</strong> .</td>
+                <tr>
+                    <td><strong>TC-10</strong></td>
+                    <td>Auth</td>
+                    <td>Đăng nhập hợp lệ</td>
+                    <td>Chuyển hướng thành công đến trang Home/Discover.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <h2>5. TỔNG HỢP & GIAO NỘP</h2>
+
+        <h3>5.1. Bảng API (Mock Endpoints)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Mục đích</th>
+                    <th>Method</th>
+                    <th>Endpoint (URL)</th>
+                    <th>Mô tả Dữ liệu</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Đăng nhập</strong></td>
+                    <td><code>POST</code></td>
+                    <td><code>/api/auth/login</code></td>
+                    <td>Yêu cầu: <code>{email, password}</code>. Trả về <code>{token}</code> và thông tin <code>{user}</code>.</td>
+                </tr>
+                <tr>
+                    <td><strong>Tìm kiếm</strong></td>
+                    <td><code>GET</code></td>
+                    <td><code>/api/search?q={query}</code></td>
+                    <td>Trả về danh sách kết quả khớp với từ khóa <code>{query}</code> (bài hát, nghệ sĩ, album).</td>
+                </tr>
+                <tr>
+                    <td><strong>Quản lý Playlist<strong></td>
+                    <td><code>GET</code></td>
+                    <td><code>/api/user/playlists</code></td>
+                    <td>Danh sách Playlist của User.</td>
+                </tr>
+                <tr>
+                    <td><strong>Quản lý Playlist</strong></td>
+                    <td><code>POST</code></td>
+                    <td><code>/api/playlist/{id}/track</code></td>
+                    <td>Thêm bài hát vào Playlist (kiểm tra BR-01).</td>
+                </tr>
+                <tr>
+                    <td><strong>Phát nhạc</strong></td>
+                    <td><code>GET</code></td>
+                    <td><code>/api/track/{id}/meta</code></td>
+                    <td>Trả về <code>stream_url</code> (HLS/DASH) và <code>lyrics</code>.</td>
+                </tr>
+                <tr>
+                    <td><strong>Ghi nhận Nghe</strong></td>
+                    <td><code>POST</code></td>
+                    <td><code>/api/track/{id}/scrobble</code></td>
+                    <td>Ghi nhận lượt nghe vào Lịch sử (theo BR-02).</td>
+                </tr>
+                </tbody>
+        </table>
+
+        <h3>5.2. Link & Tài liệu Quan trọng</h3>
+        <p>Vui lòng cập nhật các liên kết dưới đây khi hoàn tất:</p>
+        <ul>
+            <li><i class="fas fa-link"></i> **Link Prototype HTML:** <a href="https://lanne-0402.github.io/music-streaming-spec/muc3_5/" class="placeholder">My Music Webpage</a></li>
+            <li><i class="fas fa-video"></i> **Video Demo (3-5 phút):** <a href="#" class="placeholder">[Chèn link YouTube/Google Drive Video Demo]</a></li>
+            <li><i class="fab fa-github"></i> **Code Repository:** <a href="https://github.com/Lanne-0402/music-streaming-spec.git" class="placeholder">GitHub Repo music-streaming-spec</a></li>
+        </ul>
+
+    </div>
+</body>
+</html>

@@ -26,7 +26,7 @@
     border-bottom:1px solid rgba(0,0,0,0.03)
   }
 
-  
+
   .logo{
     display:flex;
     align-items:center;
@@ -43,6 +43,26 @@
     display:inline-block;
     box-shadow:0 6px 16px rgba(47,191,136,0.12)
   }
+
+  .logo-frame {
+  width: 70px;              /* chiều rộng khung */
+  height: 70px;             /* chiều cao khung */
+  border-radius: 12px;       /* bo góc nhẹ cho đẹp */
+  overflow: hidden;          /* ẩn phần ảnh tràn ra ngoài khung */
+  border: 2px solid #7ed957; /* viền màu xanh lá nhẹ */
+  display: flex;             /* canh giữa ảnh */
+  align-items: center;
+  justify-content: center;
+  background-color: #e8f8e3; /* nền nhẹ để thấy rõ khung */
+}
+
+.logo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;         /* ảnh phủ đầy khung mà không méo */
+  object-position: center;   /* canh giữa ảnh */
+}
+
 
   .searchbar{
     flex:1;max-width:720px;
