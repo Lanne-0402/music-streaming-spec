@@ -108,9 +108,35 @@
     <!-- ARTISTS -->
     <section id="artists" class="page">
       <div class="title-row"><h2>Nghệ sĩ / Album</h2></div>
-      <div id="artist-overview" class="card-row"></div>
+      <div id="artist-overview" class="card-row">
+        <div style="flex:1;min-width:200px">
+          <h3>Tất cả nghệ sĩ</h3>
+          <div id="artist-list"></div>
+        </div>
+      </div>
       <div id="artist-detail" style="margin-top:18px"></div>
+      <section style="margin-top:18px">
+        <h3>Album (mock)</h3>
+      <div style="height:20px">Album</div>
+      
+      <script>
+      const seed = {
+      albums: [
+    {id:1,artistId:1,title:"Album Thịnh Suy", cover:"../media/thinhsuy.jpg"},
+    {id:2,artistId:2,title:"Album Dương Domic", cover:"../media/duongdomic.jpg"},
+    {id:3,artistId:3,title:"Album LowG", cover:"../media/lowg.jpg"},
+    {id:4,artistId:4,title:"Album Vũ.", cover:"../media/vu.jpg"},
+    {id:5,artistId:5,title:"Album Strong Trọng Hiếu", cover:"../media/strongtronghieu.jpg"},
+    {id:6,artistId:6,title:"Album tlinh", cover:"../media/tlinh.png"},
+    {id:7,artistId:7,title:"Album Soobin Hoàng Sơn", cover:"../media/soobin.jpg"},
+    {id:8,artistId:8,title:"Album Nguyễn Hùng", cover:"../media/nguyenhung.jpg"},
+    {id:9,artistId:9,title:"Album Ed Sheeran", cover:"../media/edsheeran.png"},
+    {id:10,artistId:10,title:"Album Taylor Swift", cover:"../media/taylorswift.jpg"}
+  ],
+      }; 
+      </script>
     </section>
+
 
     <!-- TRACK PAGE -->
     <section id="trackpage" class="page">
@@ -563,6 +589,6 @@ window.addEventListener('beforeunload', ()=>{
   if(hlsInst) try{hlsInst.destroy();}catch(e){}
   if(dashPlayer) try{dashPlayer.reset();}catch(e){}
 });
-</script>
+</>
 </body>
 </html>
